@@ -1,0 +1,46 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: $font-base;
+  background-color: $gray;
+  min-width: 350px;
+  color: $black-lighter;
+  font-size: 14px;
+}
+
+input {
+  border: none;
+  outline: none;
+  font-family: $font-base;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+img {
+  max-width: 100%;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+}
+
+@font-face {
+  font-family: futurabt;
+  src: url($font-path + 'futura-light.ttf');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: futurabt;
+  src: url($font-path + 'futura-medium.otf');
+  font-weight: 500;
+}

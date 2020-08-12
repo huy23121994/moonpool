@@ -1,0 +1,18 @@
+@import "./node_modules/bootstrap/scss/functions";
+@import "./node_modules/bootstrap/scss/variables";
+@import "./node_modules/bootstrap/scss/mixins";
+
+@import "settings/variables";
+@import "./node_modules/bootstrap/scss/utilities";
+@import "settings/animations";
+@import "settings/elements";
+
+@import "components/global";
+@import "components/header";
+@import "components/footer";
+@import "components/nav";
+@import "components/moon";
+@import "components/withdraw";
+@import "components/stakeinput";
+@import "components/tac";
+@import "components/modal";

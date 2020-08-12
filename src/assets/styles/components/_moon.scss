@@ -1,0 +1,13 @@
+.moon {
+  &__balance {
+    font-weight: 500;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    line-height: 36px;
+  }
+  &__value {
+    font-size: 20px;
+    color: $black;
+  }
+}
