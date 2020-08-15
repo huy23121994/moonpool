@@ -3,7 +3,6 @@ import React, { useEffect } from 'react';
 function Modal(props) {
 
 	useEffect(() => {
-
 		if (props.isOpen) {
 			document.body.classList.add('modal-open');
 			document.getElementById("modal-backdrop").classList.add('active');
@@ -23,9 +22,11 @@ function Modal(props) {
 		<>
 			{props.isOpen &&
 				<div className="modal">
-					<div className="modal__close" onClick={closeModal}>×</div>
-					<div className="modal__content">Hello</div>
-			</div>
+					<div className="modal__content">
+						<div className="modal__close" onClick={closeModal}>×</div>
+						{props.children}
+					</div>
+				</div>
 			}
 		</>
 	)

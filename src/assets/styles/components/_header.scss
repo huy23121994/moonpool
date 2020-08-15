@@ -2,7 +2,6 @@
   background-color: $white;
   padding: 16px 33px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
   font-weight: 500;
   border-bottom-left-radius: 10px;
@@ -13,5 +12,13 @@
     &:hover {
       text-decoration: underline;
     }
+  }
+  &__address {
+    text-transform: uppercase;
+    background-color: $black-lighter;
+    color: $white;
+    padding: 5px 10px;
+    font-size: 12px;
+    border-radius: 4px;
   }
 }

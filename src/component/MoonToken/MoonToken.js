@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import StakeInput from "../Common/StakeInput";
 import Tac from "../Common/Tac";
 
 function MoonToken() {
+
+  const [mKNCBalance, setMKNCBalance] = useState(0);
 
   return (
     <div className="moon">
@@ -10,11 +12,11 @@ function MoonToken() {
         <div className="section__title">Your Token</div>
         <div className="moon__balance">
           <div>
-            <span className="moon__value">28.45 mKNC </span>
-            <span>= 28.45 KNC</span>
+            <span className="moon__value">{mKNCBalance} mKNC </span>
+            {mKNCBalance > 0 && <span>= 28.45 KNC</span>}
           </div>
 
-          <div className="withdraw">WITHDRAW</div>
+          {mKNCBalance > 0 && <div className="withdraw">WITHDRAW</div>}
         </div>
       </section>
       <section className="section">

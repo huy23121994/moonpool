@@ -1,25 +1,19 @@
-import React, { useEffect, useState } from "react";
-import useUser from "src/store/users";
+import React from "react";
 import logo from "src/assets/images/moonpool.svg";
-import Modal from "../Common/Modal";
+import ImportWallet from "../ImportWallet/ImportWallet";
+import Notification from "../Notification/Notification";
 
 function Header() {
-  const [userState, userAction] = useUser();
-  const [isOpenModal, setIsOpenModal] = useState(false);
-
-  useEffect(() => {
-    userAction.login();
-  }, []);
 
   return (
     <>
       <div className="header">
-        <img src={logo} alt="logo moonpool" />
-        <div className="header__import" onClick={() => setIsOpenModal(true)}>Import Wallet</div>
-
+        <img className="mr-auto" src={logo} alt="logo moonpool" />
+        <ImportWallet />
+        <div className="ml-3">
+          <Notification />
+        </div>
       </div>
-
-      <Modal isOpen={isOpenModal} setIsOpenModal={setIsOpenModal} />
     </>
   )
 }

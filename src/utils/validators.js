@@ -25,3 +25,7 @@ export function verifyMetamask() {
 
   return isMetamask;
 }
+
+export function checkIsObjectEmpty(object) {
+  return !object || Object.keys(object).length === 0
+}
