@@ -14,7 +14,6 @@ export default function useFetchingData() {
 
     if (accountState.address && daoInfo) {
       const stakerInfo = await fetchStakerInfo(accountState.address, daoInfo.current_epoch);
-      console.log(stakerInfo)
       accountAction.setStakeKNC(stakerInfo.stake_amount);
     }
   }
