@@ -1,3 +1,5 @@
+import { compareTwoNumber } from "./calculators";
+
 export function filterNumberInput(event, value, preVal) {
   let strRemoveText = value.replace(/[^0-9.]/g, '');
   let str = strRemoveText.replace(/\./g, (val, i) => {
@@ -28,4 +30,12 @@ export function verifyMetamask() {
 
 export function checkIsObjectEmpty(object) {
   return !object || Object.keys(object).length === 0
+}
+
+export function validateBalanceInput(amount, balance) {
+  if (compareTwoNumber(balance, amount) === -1) {
+    return "The token amount is too high. You don't have enough tokens";
+  }
+
+  return null;
 }

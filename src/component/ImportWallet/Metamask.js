@@ -15,7 +15,7 @@ function Metamask(props) {
 
     accountAction.importAccount(address, wallet, 'metamask');
     wallet.getDisconnected(accountAction.clearAccount);
-    props.setIsOpenModal(false);
+    props.closeModal();
   }
 
   

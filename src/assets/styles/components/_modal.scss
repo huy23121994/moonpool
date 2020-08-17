@@ -27,7 +27,21 @@
   &__title {
     font-size: 18px;
     font-weight: 500;
-    margin-bottom: 31px;
+    margin-bottom: 23px;
+  }
+  &__subtitle {
+    font-size: 16px;
+    margin-bottom: 23px;
+  }
+  &__footer {
+    text-align: center;
+    background-color: #f5f5f5;
+    padding: 18px 0;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    > * {
+      margin: 0 10px;
+    }
   }
 }
 

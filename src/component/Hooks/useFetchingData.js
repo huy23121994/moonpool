@@ -1,13 +1,36 @@
 import { useEffect } from 'react';
 import { fetchDaoInfo, fetchStakerInfo } from 'src/services/apis/daoService';
 import useAccount from "src/store/account";
+import { fetchGasPrices } from 'src/services/apis/cacheService';
+import { FETCHING_INTERVALS } from 'src/configs/constants';
+import useGas from 'src/store/gas';
 
 export default function useFetchingData() {
   const [accountState, accountAction] = useAccount();
+  const [, gasAction] = useGas();
 
   useEffect(() => {
     getDaoAndStakerInfo();
   }, [accountState.address]);
+
+  useEffect(() => {
+    getGasPrices();
+    const gasPricesInterval = setInterval(() => {
+      getGasPrices();
+    }, FETCHING_INTERVALS.GAS_PRICE);
+
+    return () => {
+      clearInterval(gasPricesInterval);
+    }
+  }, []);
+
+  async function getGasPrices() {
+    const gasPrices = await fetchGasPrices();
+
+    if (!gasPrices) return;
+
+    gasAction.setGasPrice(gasPrices);
+  }
 
   async function getDaoAndStakerInfo() {
     const daoInfo = await fetchDaoInfo();

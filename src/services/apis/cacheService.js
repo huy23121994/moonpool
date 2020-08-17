@@ -1,8 +1,8 @@
-import ENV from "src/app/configs/env";
-import { checkIsObjectEmpty } from "src/app/utils/validators";
-import { GAS_PRICE_LIMIT } from "src/app/configs/constants";
-import { toGwei } from "src/app/utils/converters";
-import Web3Service from "src/app/services/web3/Web3Service";
+import ENV from "src/configs/env";
+import { checkIsObjectEmpty } from "src/utils/validators";
+import { GAS_PRICE_LIMIT } from "src/configs/constants";
+import { toGwei } from "src/utils/converters";
+import Web3Service from "src/services/web3/Web3Service";
 
 export async function fetchGasPrices() {
   let gasPrices, maxGasPrice;

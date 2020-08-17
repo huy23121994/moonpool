@@ -15,7 +15,7 @@ function Modal(props) {
 	}, [props.isOpen]);
 
 	function closeModal() {
-		props.setIsOpenModal(false);
+		props.closeModal();
 	}
 
 	return (

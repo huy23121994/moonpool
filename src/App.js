@@ -27,7 +27,7 @@ function App() {
           <Switch>
             <Route path="/token" exact component={MoonToken} />
             <Route path="/stake" exact component={KncStake} />
-            <Redirect to="/token" />
+            <Redirect to="/stake" />
           </Switch>
 
         </main>

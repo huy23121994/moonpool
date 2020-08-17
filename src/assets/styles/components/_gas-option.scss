@@ -1,0 +1,71 @@
+.gas-option {
+  margin-top: 25px;
+
+  &__title {
+    font-size: 12px;
+    position: relative;
+
+    &::after {
+      content: '';
+      display: block;
+      width: calc(100% - 130px);
+      position: absolute;
+      right: 20px;
+      top: 8px;
+      border: 1px dashed $gray-1;
+    }
+
+    &-text {
+      display: inline-block;
+      padding-right: 20px;
+      position: relative;
+      z-index: 1;
+    }
+  }
+
+  &__item {
+    display: inline-block;
+    margin: 15px 20px 0 0;
+    text-align: left;
+    min-width: 35%;
+  }
+
+  &__value {
+    font-size: 13px;
+    font-weight: bold;
+    margin-right: 5px;
+  }
+
+  &__text {
+    font-size: 11px;
+    text-transform: uppercase;
+  }
+
+  &__estimate {
+    font-size: 11px;
+    font-weight: 500;
+  }
+
+  &__info {
+    padding: 1px 5px;
+    font-size: 11px;
+    border-radius: 50%;
+    background-color: $black-lighter-1;
+    position: relative;
+    bottom: 2px;
+    color: $white;
+  }
+
+  .slide-down__arrow {
+    right: 0;
+    border-top-color: $black;
+  }
+
+  .common__option-check {
+    top: 3px;
+  }
+
+  .common__tooltip-content {
+    top: -85px;
+  }
+}

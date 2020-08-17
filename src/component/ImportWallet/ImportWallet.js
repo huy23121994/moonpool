@@ -14,11 +14,11 @@ function ImportWallet(props) {
         : props.render(() => setIsOpenModal(true))
       }
 
-      <Modal isOpen={isOpenModal} setIsOpenModal={setIsOpenModal}>
+      <Modal isOpen={isOpenModal} closeModal={() => setIsOpenModal(false)}>
         <div className="modal__section">
           <div className="modal__title">Connect Wallet</div>
           <div className="import">
-            <Metamask className="import__btn import__btn--metamask" setIsOpenModal={setIsOpenModal} />
+            <Metamask className="import__btn import__btn--metamask" closeModal={() => setIsOpenModal(false)} />
             {/* <div className="import__btn import__btn--trezor">Trezor</div> */}
           </div>
         </div>

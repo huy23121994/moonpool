@@ -10,6 +10,7 @@ const envConfig = {
     CONNECTION_TIMEOUT: 6000
   },
   CONTRACTS: {
+    PROXY: '0xc153eead19e0dbbdb3462dcc2b703cc6d738a37c',
     STAKING: '0x9f349Eb72C3E07F6E840978C65a8BF3b9C74C4f8',
     DAO: '0x39E507f4F7c3e85eD799FDbdf04E42104a8f6b9A',
     FEE_HANDLER: '0xEc30037C9A8A6A3f42734c30Dfa0a208aF71b40C'
@@ -20,8 +21,7 @@ const envConfig = {
     DAO: 'https://staging-dao-stats.knstats.com',
     CACHE: 'https://production-cache.kyber.network',
     KN: 'https://api.kyber.network'
-  },
-  STAKING_PARTNERS: []
+  }
 };
 
 export default envConfig;
