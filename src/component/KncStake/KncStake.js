@@ -8,7 +8,7 @@ import { validateBalanceInput } from "src/utils/validators";
 import Web3Service from "src/services/web3/Web3Service";
 import { compareTwoNumber } from "src/utils/calculators";
 import { toBigAmount } from "src/utils/converters";
-import ConfirmModal from "../Modals/ConfirmModal";
+import KncStakeConfirmModal from "./KncStakeConfirmModal";
 import GasOption from "../Common/GasOption";
 import { ACTIONS, DEFAULT_GAS } from "src/configs/constants";
 
@@ -17,6 +17,7 @@ function KncStake() {
   const address = accountState.address;
   const [stakingAmount, setStakingAmount] = useState('');
   const [isOpenConfirmModal, setIsOpenConfirmModal] = useState(false);
+  const [error, setError] = useState("");
 
   async function stake() {
     const isInputValid = validateInput();
@@ -38,10 +39,10 @@ function KncStake() {
 
   function validateInput() {
     let isValid = true;
-    let errorMessage = validateBalanceInput(stakingAmount, accountState.KNCstake);
+    let errorMessage = validateBalanceInput(stakingAmount, accountState.balance.KNCstake);
 
     if (errorMessage !== null) {
-      alert(errorMessage);
+      setError(errorMessage);
       isValid = false;
     }
 
@@ -66,11 +67,13 @@ function KncStake() {
             balance={accountState.balance.KNCstake}
             onChange={setStakingAmount}
             amount={stakingAmount}
+            error={error}
+            setError={setError}
             token="KNC"
           />
           <ImportWallet
             render={onClick => <div className="btn btn-fw btn-dark btn-lg mt-4" onClick={onClick}>Import your wallet to Stake</div>}
-            renderAfterImport={() =>
+            renderAfterImport={(address) =>
               <>
                 <GasOption
                   txType={ACTIONS.STAKE}
@@ -92,11 +95,11 @@ function KncStake() {
 
       </div>
 
-      <ConfirmModal
+      <KncStakeConfirmModal
         isOpen={isOpenConfirmModal}
         closeModal={() => setIsOpenConfirmModal(false)}
-        title="Confirm Stake"
-        subTitle={'You are staking 447.249950 KNC to KyberDAO'}
+        stakingAmount={stakingAmount}
+        address={address}
       />
 
     </>

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import SlideDown, { SlideDownContent, SlideDownTrigger } from "./SlideDown";
-// import { setEstimatedGas, setSelectedGasPrice } from "src/actions/globalAction";
 import Web3Service from "src/services/web3/Web3Service";
 import { calculateTxFee } from "src/utils/calculators";
 import Tooltip from "./Tooltip";
@@ -12,19 +11,19 @@ export default function GasOption(props) {
   const [isOpened, setIsOpened] = useState(false);
   const [gasLimit, setGasLimit] = useState(props.defaultGasLimit);
 
-  // useEffect(() => {
-  //   async function fetchEstimatedGasLimit() {
-  //     dispatch(setEstimatedGas(props.defaultGasLimit));
+  useEffect(() => {
+    async function fetchEstimatedGasLimit() {
+      gasAction.setEstimatedGas(props.defaultGasLimit);
 
-  //     const web3Service = new Web3Service();
-  //     const estimatedGasLimit = await web3Service.estimatedGasByType(props.txType, props.txParams);
+      const web3Service = new Web3Service();
+      const estimatedGasLimit = await web3Service.estimatedGasByType(props.txType, props.txParams);
 
-  //     setGasLimit(estimatedGasLimit);
-  //     dispatch(setEstimatedGas(estimatedGasLimit));
-  //   }
+      setGasLimit(estimatedGasLimit);
+      gasAction.setEstimatedGas(estimatedGasLimit);
+    }
 
-  //   fetchEstimatedGasLimit();
-  // }, []); // eslint-disable-line
+    fetchEstimatedGasLimit();
+  }, []);
 
   function toggleDropdown() {
     setIsOpened(!isOpened);
@@ -49,8 +48,8 @@ export default function GasOption(props) {
         </SlideDownTrigger>
 
         <SlideDownContent className="gas-option__content" status={isOpened} close={closeDropdown} persistOnClickOutside={true}>
-          {Object.keys(gas.price).map(key => {
-            const gasPrice = gas.price[key];
+          {Object.keys(gas.prices).map(key => {
+            const gasPrice = gas.prices[key];
 
             return (
               <label key={key} className={`option gas-option__item`}>

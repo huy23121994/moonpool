@@ -74,8 +74,8 @@ main {
     pointer-events: none;
 
     &:checked ~ .option-check {
-      border-color: $blue;
-      background-color: $blue;
+      border-color: $purple;
+      background-color: $purple;
 
       &::after {
         transform: translateY(-50%) scale(1);

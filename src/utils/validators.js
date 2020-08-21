@@ -7,7 +7,7 @@ export function filterNumberInput(event, value, preVal) {
     return val
   });
 
-  if(str === ".") str = "0.";
+  if (str === ".") str = "0.";
 
   event.target.value = str;
 
@@ -33,7 +33,9 @@ export function checkIsObjectEmpty(object) {
 }
 
 export function validateBalanceInput(amount, balance) {
-  if (compareTwoNumber(balance, amount) === -1) {
+  if (!+amount) {
+    return "Please enter a positive amount";
+  } else if (compareTwoNumber(balance, amount) === -1) {
     return "The token amount is too high. You don't have enough tokens";
   }
 

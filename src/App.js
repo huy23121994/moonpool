@@ -5,18 +5,11 @@ import MoonToken from './component/MoonToken/MoonToken';
 import KncStake from './component/KncStake/KncStake';
 
 import { Switch, Route, BrowserRouter, Redirect } from 'react-router-dom';
-import useCurrencies from './store/currencies';
 import useFetchingData from './component/Hooks/useFetchingData';
 
 function App() {
   useFetchingData();
-  
-  const [currencies , currenciesAction] = useCurrencies();
-  useEffect(() => {
-    currenciesAction.getCurrencies();
-  }, []);
 
-  console.log(currencies)
   return (
     <BrowserRouter >
       <div className="app">
