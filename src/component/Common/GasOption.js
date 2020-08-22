@@ -23,7 +23,7 @@ export default function GasOption(props) {
     }
 
     fetchEstimatedGasLimit();
-  }, []);
+  }, [gasAction, props.defaultGasLimit, props.txType]);
 
   function toggleDropdown() {
     setIsOpened(!isOpened);

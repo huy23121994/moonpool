@@ -27,8 +27,8 @@ function App() {
 
         <footer>
           <div>
-            <a href="">FAQ</a>
-            <a href="">Terms</a>
+            <a href="#">FAQ</a>
+            <a href="#">Terms</a>
           </div>
           <span>© 2020 MoonPool. All rights reserved.</span>
         </footer>

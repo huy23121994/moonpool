@@ -39,7 +39,7 @@ function KncStake() {
 
   function validateInput() {
     let isValid = true;
-    let errorMessage = validateBalanceInput(stakingAmount, accountState.balance.KNCstake);
+    let errorMessage = validateBalanceInput(stakingAmount, accountState.balance.KNC);
 
     if (errorMessage !== null) {
       setError(errorMessage);
@@ -56,15 +56,15 @@ function KncStake() {
           <section className="section">
             <div className="section__title">Your Stake at Kyber</div>
             <div className="moon__balance">
-              <span className="moon__value">{accountState.balance.KNCstake} KNC </span>
-              {accountState.balance.KNCstake > 0 && <div className="withdraw">WITHDRAW</div>}
+              <span className="moon__value">{accountState.KNCstake} KNC </span>
+              {accountState.KNCstake > 0 && <div className="withdraw">WITHDRAW</div>}
             </div>
           </section>
         }
         <section className="section">
           <div className="section__title">Stake KNC</div>
           <StakeInput
-            balance={accountState.balance.KNCstake}
+            balance={accountState.balance.KNC}
             onChange={setStakingAmount}
             amount={stakingAmount}
             error={error}
@@ -73,7 +73,8 @@ function KncStake() {
           />
           <ImportWallet
             render={onClick => <div className="btn btn-fw btn-dark btn-lg mt-4" onClick={onClick}>Import your wallet to Stake</div>}
-            renderAfterImport={(address) =>
+            address={address}
+            renderAfterImport={() =>
               <>
                 <GasOption
                   txType={ACTIONS.STAKE}
@@ -95,13 +96,14 @@ function KncStake() {
 
       </div>
 
-      <KncStakeConfirmModal
-        isOpen={isOpenConfirmModal}
-        closeModal={() => setIsOpenConfirmModal(false)}
-        stakingAmount={stakingAmount}
-        address={address}
-      />
-
+      {isOpenConfirmModal &&
+        <KncStakeConfirmModal
+          isOpen={isOpenConfirmModal}
+          closeModal={() => setIsOpenConfirmModal(false)}
+          stakingAmount={stakingAmount}
+          address={address}
+        />
+      }
     </>
   )
 }

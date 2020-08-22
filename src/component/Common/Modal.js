@@ -12,7 +12,7 @@ function Modal(props) {
 			document.getElementById("modal-backdrop").classList.remove('active');
 			document.getElementById("modal-backdrop").removeEventListener("click", closeModal);
 		}
-	}, [props.isOpen]);
+	}, [props.isOpen, closeModal]);
 
 	function closeModal() {
 		props.closeModal();

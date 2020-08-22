@@ -10,34 +10,41 @@ export default function useFetchingData() {
   const [, gasAction] = useGas();
 
   useEffect(() => {
+    async function getDaoAndStakerInfo() {
+      const daoInfo = await fetchDaoInfo();
+
+      if (accountState.address && daoInfo) {
+        const stakerInfo = await fetchStakerInfo(accountState.address, daoInfo.current_epoch);
+        accountAction.setStakeKNC(stakerInfo.stake_amount);
+      }
+    }
     getDaoAndStakerInfo();
-  }, [accountState.address]);
+  }, [accountAction, accountState.address]);
 
   useEffect(() => {
-    getGasPrices();
-    const gasPricesInterval = setInterval(() => {
+    async function getGasPrices() {
+      const gasPrices = await fetchGasPrices();
+
+      if (!gasPrices) return;
+
+      gasAction.setGasPrice(gasPrices);
+    }
+
+    if (accountState.address) {
       getGasPrices();
-    }, FETCHING_INTERVALS.GAS_PRICE);
+      const gasPricesInterval = setInterval(() => {
+        getGasPrices();
+      }, FETCHING_INTERVALS.GAS_PRICE);
 
-    return () => {
-      clearInterval(gasPricesInterval);
+      return () => {
+        clearInterval(gasPricesInterval);
+      }
     }
-  }, []);
+  }, [accountState.address, gasAction]);
 
-  async function getGasPrices() {
-    const gasPrices = await fetchGasPrices();
-
-    if (!gasPrices) return;
-
-    gasAction.setGasPrice(gasPrices);
-  }
-
-  async function getDaoAndStakerInfo() {
-    const daoInfo = await fetchDaoInfo();
-
-    if (accountState.address && daoInfo) {
-      const stakerInfo = await fetchStakerInfo(accountState.address, daoInfo.current_epoch);
-      accountAction.setStakeKNC(stakerInfo.stake_amount);
+  useEffect(() => {
+    if (accountState.address) {
+      accountAction.fetchBalance();
     }
-  }
+  }, [accountAction, accountState.address]);
 }

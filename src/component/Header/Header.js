@@ -4,8 +4,11 @@ import ImportWallet from "../ImportWallet/ImportWallet";
 import Notification from "../Notification/Notification";
 import { formatAddress } from "src/utils/fortmaters";
 import { Link } from "react-router-dom";
+import useAccount from "src/store/account";
 
 function Header() {
+  const [accountState] = useAccount();
+  const address = accountState.address;
 
   return (
     <>
@@ -15,7 +18,8 @@ function Header() {
         </Link>
         <ImportWallet
           render={onClick => <div className="header__import" onClick={onClick}>Import Wallet</div>}
-          renderAfterImport={address => <div className="header__address">{formatAddress(address)}</div>}
+          address={address}
+          renderAfterImport={() => <div className="header__address">{formatAddress(address)}</div>}
         />
         <div className="ml-3">
           <Notification />

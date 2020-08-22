@@ -16,13 +16,14 @@ export default function useGasAndTxFee(txType, params = {}) {
       const estimatedGasLimit = await web3Service.estimatedGasByType(txType, params);
       const txFee = calculateTxFee(gasPrice, estimatedGasLimit);
 
+      console.log(estimatedGasLimit)
       setGasPrice(gasPrice);
       setGas(estimatedGasLimit);
       setTxFee(txFee);
     }
 
     fetchGasAndTxFee();
-  }, []); // eslint-disable-line
+  }, [gasPrices, params]);
 
   return {
     gasPrice, gas, txFee,

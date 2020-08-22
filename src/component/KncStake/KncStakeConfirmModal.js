@@ -5,7 +5,6 @@ import { ACTIONS } from "src/configs/constants";
 import { roundNumber } from "src/utils/fortmaters";
 
 function KncStakeConfirmModal(props) {
-
   const { gasPrice, gas, txFee, isGasLoading } = useGasAndTxFee(ACTIONS.STAKE, {
     address: props.address,
     stakingAmount: props.stakingAmount
