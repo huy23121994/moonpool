@@ -1,7 +1,7 @@
 import TransportU2F from "@ledgerhq/hw-transport-u2f";
 import Eth from "@ledgerhq/hw-app-eth";
-import { getRawTxHex, getSignedTxHex } from "src/app/utils/keys";
-import DeviceService from "src/app/services/accounts/Devices/DeviceService";
+import { getRawTxHex, getSignedTxHex } from "src/utils/keys";
+import DeviceService from "src/services/accounts/Devices/DeviceService";
 
 export default class LedgerService extends DeviceService {
   constructor(props) {

@@ -1,9 +1,9 @@
 import HDKey from "hdkey";
-import BaseWalletService from "src/app/services/accounts/BaseWalletService";
+import BaseWalletService from "src/services/accounts/BaseWalletService";
 import { publicToAddress } from "ethereumjs-util";
-import { LIMIT } from "src/app/configs/constants";
-import { formatBigNumber } from "src/app/utils/fortmaters";
-import Web3Service from "src/app/services/web3/Web3Service";
+import { LIMIT } from "src/configs/constants";
+import { formatBigNumber } from "src/utils/fortmaters";
+import Web3Service from "src/services/web3/Web3Service";
 
 export default class DeviceService extends BaseWalletService {
   constructor(props) {

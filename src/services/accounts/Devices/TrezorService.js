@@ -1,6 +1,6 @@
 import TrezorConnect from 'trezor-connect';
-import DeviceService from "src/app/services/accounts/Devices/DeviceService";
-import { getSignedTxHex } from "src/app/utils/keys";
+import DeviceService from "src/services/accounts/Devices/DeviceService";
+import { getSignedTxHex } from "src/utils/keys";
 
 export default class TrezorService extends DeviceService {
   constructor(props) {

@@ -1,8 +1,8 @@
 import WalletConnect from "@walletconnect/browser";
 import WalletConnectQRCodeModal from "@walletconnect/qrcode-modal";
-import ENV from "src/app/configs/env";
-import { fromNetworkIdToName } from "src/app/utils/converters";
-import BaseWalletService from "src/app/services/accounts/BaseWalletService";
+import ENV from "src/configs/env";
+import { fromNetworkIdToName } from "src/utils/converters";
+import BaseWalletService from "src/services/accounts/BaseWalletService";
 
 export default class WalletConnectService extends BaseWalletService {
   constructor(props) {

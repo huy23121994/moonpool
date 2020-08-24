@@ -4,6 +4,7 @@ import useAccount from "src/store/account";
 import { fetchGasPrices } from 'src/services/apis/cacheService';
 import { FETCHING_INTERVALS } from 'src/configs/constants';
 import useGas from 'src/store/gas';
+import { getWalletByType } from 'src/utils/converters';
 
 export default function useFetchingData() {
   const [accountState, accountAction] = useAccount();
@@ -47,4 +48,14 @@ export default function useFetchingData() {
       accountAction.fetchBalance();
     }
   }, [accountAction, accountState.address]);
+
+  useEffect(() => {
+    let address = localStorage.getItem('address');
+    let type = localStorage.getItem('type');
+    if (address && type) {
+      const wallet = getWalletByType(address, type);
+      accountAction.importAccount(address, wallet, type);
+      wallet.getDisconnected(accountAction.clearAccount);
+    }
+  }, [accountAction]);
 }

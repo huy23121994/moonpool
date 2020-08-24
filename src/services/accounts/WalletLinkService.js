@@ -1,7 +1,7 @@
 import Web3 from "web3";
 import WalletLink from 'walletlink';
-import ENV from "src/app/configs/env";
-import BaseWalletService from "src/app/services/accounts/BaseWalletService";
+import ENV from "src/configs/env";
+import BaseWalletService from "src/services/accounts/BaseWalletService";
 
 export default class WalletLinkService extends BaseWalletService {
   constructor(props) {

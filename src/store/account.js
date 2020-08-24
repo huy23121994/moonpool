@@ -20,10 +20,14 @@ const initialState = {
 const actions = {
   importAccount: (store, address, wallet, type) => {
     store.setState({ address: address, wallet: wallet, type: type });
+    localStorage.setItem('address', address);
+    localStorage.setItem('type', type);
   },
 
   clearAccount: (store) => {
     store.setState({ ...initialState });
+    localStorage.removeItem('address');
+    localStorage.removeItem('type');
   },
 
   setStakeKNC: (store, amount) => {
