@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Header from './component/Header/Header';
 import Nav from './component/Nav/Nav';
 import MoonToken from './component/MoonToken/MoonToken';

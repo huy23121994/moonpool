@@ -111,3 +111,40 @@ main {
     }
   }
 }
+
+.animation-slide-up {
+  animation: slide-up 0.3s forwards;
+}
+
+.copy {
+  margin-left: 10px;
+  cursor: pointer;
+  content: '';
+  width: 14px;
+  height: 14px;
+  display: inline-block;
+  background-image: url($image-path + 'copy.svg');
+  vertical-align: top;
+  &-status {
+    margin-top: 3px;
+    font-size: 12px;
+    color: $green;
+  }
+}
+
+.address {
+  text-align: left;
+  .addr {
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 500;
+    width: calc(100% - 25px);
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

@@ -74,20 +74,19 @@ export function getWalletByType(address, type) {
 
   if (type === WALLET_TYPES.METAMASK) {
     wallet = new MetamaskService(props);
+  } else if (type === WALLET_TYPES.KEYSTORE) {
+    wallet = new KeystoreService(props);
+  } else if (type === WALLET_TYPES.WALLET_CONNECT) {
+    wallet = new WalletConnectService(props);
+  } else if (type === WALLET_TYPES.WALLET_LINK) {
+    wallet = new WalletLinkService(props);
+  } else if (type === WALLET_TYPES.TREZOR) {
+    wallet = new TrezorService(props);
+  } else if (type === WALLET_TYPES.LEDGER) {
+    wallet = new LedgerService(props);
+  } else if (type === WALLET_TYPES.DAPP) {
+    wallet = new DappService(props);
   }
-  // } else if (type === WALLET_TYPES.KEYSTORE) {
-  //   wallet = new KeystoreService(props);
-  // } else if (type === WALLET_TYPES.WALLET_CONNECT) {
-  //   wallet = new WalletConnectService(props);
-  // } else if (type === WALLET_TYPES.WALLET_LINK) {
-  //   wallet = new WalletLinkService(props);
-  // } else if (type === WALLET_TYPES.TREZOR) {
-  //   wallet = new TrezorService(props);
-  // } else if (type === WALLET_TYPES.LEDGER) {
-  //   wallet = new LedgerService(props);
-  // } else if (type === WALLET_TYPES.DAPP) {
-  //   wallet = new DappService(props);
-  // }
 
   return wallet;
 }

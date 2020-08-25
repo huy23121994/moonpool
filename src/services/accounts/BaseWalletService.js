@@ -33,7 +33,7 @@ export default class BaseWalletService {
       clearAccount();
     });
 
-    this.ethereum.on('networkChanged', (networkId) => {
+    this.ethereum.on('chainChanged', (networkId) => {
       if (+networkId === ENV.NETWORK_ID) return;
       clearAccount();
     });

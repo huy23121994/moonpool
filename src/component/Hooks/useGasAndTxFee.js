@@ -22,7 +22,7 @@ export default function useGasAndTxFee(txType, params = {}) {
     }
 
     fetchGasAndTxFee();
-  }, [gasPrices, params]);
+  }, [gasPrices, params, txType]);
 
   return {
     gasPrice, gas, txFee,

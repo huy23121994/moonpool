@@ -10,13 +10,16 @@ import { compareTwoNumber } from "src/utils/calculators";
 import { toBigAmount } from "src/utils/converters";
 import KncStakeConfirmModal from "./KncStakeConfirmModal";
 import GasOption from "../Common/GasOption";
-import { ACTIONS, DEFAULT_GAS } from "src/configs/constants";
+import { ACTIONS, DEFAULT_GAS, TOPICS } from "src/configs/constants";
+import BroardcastedTxModal from "../Common/BroardcastedTxModal";
 
 function KncStake() {
-  const [accountState] = useAccount();
+  const [accountState, accountAction] = useAccount();
+  console.log(accountState)
   const address = accountState.address;
   const [stakingAmount, setStakingAmount] = useState('');
   const [isOpenConfirmModal, setIsOpenConfirmModal] = useState(false);
+  const [isOpenBroadcastModal, setIsOpenBroadcastModal] = useState(false);
   const [error, setError] = useState("");
 
   async function stake() {
@@ -101,7 +104,17 @@ function KncStake() {
           isOpen={isOpenConfirmModal}
           closeModal={() => setIsOpenConfirmModal(false)}
           stakingAmount={stakingAmount}
-          address={address}
+          account={accountState}
+          accountAction={accountAction}
+          openBroadcastModal={() => setIsOpenBroadcastModal(true)}
+        />
+      }
+      {isOpenBroadcastModal &&
+        <BroardcastedTxModal
+          isOpen={isOpenBroadcastModal}
+          closeModal={() => setIsOpenBroadcastModal(false)}
+          txHash={accountState.lastTx.hash}
+          topic={TOPICS.STAKE}
         />
       }
     </>

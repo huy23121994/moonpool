@@ -11,6 +11,11 @@ const initialState = {
   wallet: null,
   type: null,
   KNCstake: 0,
+  lastTx: {
+    hash: null,
+    nonce: null,
+    type: null,
+  },
   balance: {
     KNC: 0,
     ETH: 0,
@@ -32,6 +37,10 @@ const actions = {
 
   setStakeKNC: (store, amount) => {
     store.setState({ KNCstake: amount });
+  },
+
+  setLastTx: (store, hash, nonce, type) => {
+    store.setState({ lastTx: {hash: hash, nonce: nonce, type: type} });
   },
 
   fetchBalance: async (store) => {
