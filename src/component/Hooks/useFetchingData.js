@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import { fetchDaoInfo, fetchStakerInfo } from 'src/services/apis/daoService';
 import useAccount from "src/store/account";
 import { fetchGasPrices } from 'src/services/apis/cacheService';
 import { FETCHING_INTERVALS } from 'src/configs/constants';
@@ -9,18 +8,6 @@ import { getWalletByType } from 'src/utils/converters';
 export default function useFetchingData() {
   const [accountState, accountAction] = useAccount();
   const [, gasAction] = useGas();
-
-  useEffect(() => {
-    async function getDaoAndStakerInfo() {
-      const daoInfo = await fetchDaoInfo();
-
-      if (accountState.address && daoInfo) {
-        const stakerInfo = await fetchStakerInfo(accountState.address, daoInfo.current_epoch);
-        accountAction.setStakeKNC(stakerInfo.stake_amount + stakerInfo.pending_stake_amount);
-      }
-    }
-    getDaoAndStakerInfo();
-  }, [accountAction, accountState.address]);
 
   useEffect(() => {
     async function getGasPrices() {

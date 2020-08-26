@@ -12,12 +12,12 @@ import KncStakeConfirmModal from "./KncStakeConfirmModal";
 import GasOption from "../Common/GasOption";
 import { ACTIONS, DEFAULT_GAS, TOPICS } from "src/configs/constants";
 import BroardcastedTxModal from "../Common/BroardcastedTxModal";
+import Loading from "../Common/Loading";
 
 function KncStake() {
   const [accountState, accountAction] = useAccount();
-  console.log(accountState)
   const address = accountState.address;
-  const [stakingAmount, setStakingAmount] = useState('');
+  const [stakingAmount, setStakingAmount] = useState("");
   const [isOpenConfirmModal, setIsOpenConfirmModal] = useState(false);
   const [isOpenBroadcastModal, setIsOpenBroadcastModal] = useState(false);
   const [error, setError] = useState("");
@@ -29,7 +29,7 @@ function KncStake() {
 
     const web3Service = new Web3Service();
     const tokenAllowance = await web3Service.fetchTokenAllowance(address);
-    console.log(tokenAllowance)
+    console.log(tokenAllowance);
     if (+tokenAllowance === 0) {
       // TO DO: show approve modal
     } else if (compareTwoNumber(tokenAllowance, toBigAmount(stakingAmount)) === -1) {
@@ -55,19 +55,21 @@ function KncStake() {
   return (
     <>
       <div className="moon">
-        {address &&
+        {address && (
           <section className="section">
             <div className="section__title">Your Stake at Kyber</div>
             <div className="moon__balance">
-              <span className="moon__value">{accountState.KNCstake} KNC </span>
+              <span className="moon__value">
+                {accountState.updating ? <Loading /> : accountState.KNCstake} KNC
+              </span>
               {accountState.KNCstake > 0 && <div className="withdraw">WITHDRAW</div>}
             </div>
           </section>
-        }
+        )}
         <section className="section">
           <div className="section__title">Stake KNC</div>
           <StakeInput
-            balance={accountState.balance.KNC}
+            balance={accountState.updating ? <Loading /> : accountState.balance.KNC}
             onChange={setStakingAmount}
             amount={stakingAmount}
             error={error}
@@ -75,9 +77,13 @@ function KncStake() {
             token="KNC"
           />
           <ImportWallet
-            render={onClick => <div className="btn btn-fw btn-dark btn-lg mt-4" onClick={onClick}>Import your wallet to Stake</div>}
+            render={(onClick) => (
+              <div className="btn btn-fw btn-dark btn-lg mt-4" onClick={onClick}>
+                Import your wallet to Stake
+              </div>
+            )}
             address={address}
-            renderAfterImport={() =>
+            renderAfterImport={() => (
               <>
                 <GasOption
                   txType={ACTIONS.STAKE}
@@ -85,21 +91,22 @@ function KncStake() {
                   defaultGasLimit={DEFAULT_GAS.STAKE}
                 />
                 <Tac className="mt-3" />
-                <div className="btn btn-lg btn-dark mt-3" onClick={stake}>Stake</div>
+                <div className="btn btn-lg btn-dark mt-3" onClick={stake}>
+                  Stake
+                </div>
               </>
-            }
+            )}
           />
         </section>
 
-        {address &&
+        {address && (
           <section className="section">
             <Delegate />
           </section>
-        }
-
+        )}
       </div>
 
-      {isOpenConfirmModal &&
+      {isOpenConfirmModal && (
         <KncStakeConfirmModal
           isOpen={isOpenConfirmModal}
           closeModal={() => setIsOpenConfirmModal(false)}
@@ -108,17 +115,19 @@ function KncStake() {
           accountAction={accountAction}
           openBroadcastModal={() => setIsOpenBroadcastModal(true)}
         />
-      }
-      {isOpenBroadcastModal &&
+      )}
+
+      {isOpenBroadcastModal && (
         <BroardcastedTxModal
           isOpen={isOpenBroadcastModal}
           closeModal={() => setIsOpenBroadcastModal(false)}
           txHash={accountState.lastTx.hash}
           topic={TOPICS.STAKE}
+          accountAction={accountAction}
         />
-      }
+      )}
     </>
-  )
+  );
 }
 
 export default KncStake;

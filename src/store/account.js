@@ -19,20 +19,21 @@ const initialState = {
   balance: {
     KNC: 0,
     ETH: 0,
-  }
+  },
+  updating: false,
 };
 
 const actions = {
   importAccount: (store, address, wallet, type) => {
     store.setState({ address: address, wallet: wallet, type: type });
-    localStorage.setItem('address', address);
-    localStorage.setItem('type', type);
+    localStorage.setItem("address", address);
+    localStorage.setItem("type", type);
   },
 
   clearAccount: (store) => {
     store.setState({ ...initialState });
-    localStorage.removeItem('address');
-    localStorage.removeItem('type');
+    localStorage.removeItem("address");
+    localStorage.removeItem("type");
   },
 
   setStakeKNC: (store, amount) => {
@@ -40,27 +41,34 @@ const actions = {
   },
 
   setLastTx: (store, hash, nonce, type) => {
-    store.setState({ lastTx: {hash: hash, nonce: nonce, type: type} });
+    store.setState({ lastTx: { hash: hash, nonce: nonce, type: type } });
   },
 
   fetchBalance: async (store) => {
     const address = store.state.address;
     if (address) {
-      const web3Service = new Web3Service();
-
-      const ETHBalance = await web3Service.fetchETHBalance(address);
-      const KNCBalance = await web3Service.fetchTokenBalance(address, ENV.KNC_ADDRESS);
-      // const stakedKNCBalance = await web3Service.fetchStakedBalance(store.address);
-
-      store.setState({
-        balance: {
-          ETH: formatBigNumber(ETHBalance),
-          KNC: formatBigNumber(KNCBalance)
-        }
-      });
+      store.setState({updating: true});
+      const data = await fetchBalance(address)
+      store.setState({...data, updating: false});
     }
   },
 };
+
+async function fetchBalance(address) {
+  const web3Service = new Web3Service();
+
+  const ETHBalance = await web3Service.fetchETHBalance(address);
+  const KNCBalance = await web3Service.fetchTokenBalance(address, ENV.KNC_ADDRESS);
+  const stakedKNCBalance = await web3Service.fetchStakedBalance(address);
+
+  return {
+    KNCstake: formatBigNumber(stakedKNCBalance),
+    balance: {
+      ETH: formatBigNumber(ETHBalance),
+      KNC: formatBigNumber(KNCBalance),
+    },
+  }
+}
 
 const useAccount = useGlobalHook(React, initialState, actions);
 

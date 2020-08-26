@@ -4,6 +4,7 @@ import useGasAndTxFee from "../Hooks/useGasAndTxFee";
 import { ACTIONS } from "src/configs/constants";
 import { roundNumber } from "src/utils/fortmaters";
 import Web3Service from "src/services/web3/Web3Service";
+import Loading from "../Common/Loading";
 
 function KncStakeConfirmModal(props) {
   const account = props.account;
@@ -26,7 +27,6 @@ function KncStakeConfirmModal(props) {
       const txHash = await account.wallet.makeTransaction(stakeTxObject, null, account.devicePath);
 
       props.accountAction.setLastTx(txHash, nonce, ACTIONS.STAKE, props.stakingAmount);
-      setTxConfirming(false);
       props.closeModal();
       props.openBroadcastModal();
     } catch (e) {
@@ -40,7 +40,7 @@ function KncStakeConfirmModal(props) {
       <div className="modal__section">
         <div className="modal__title">Confirm Stake</div>
         <div className="modal__subtitle"> You are staking {roundNumber(props.stakingAmount, 6, true)} KNC to KyberDAO</div>
-        <div className="modal__subtitle mb-0">Tx Fee: {isGasLoading ? "..." : txFee} ETH</div>
+        <div className="modal__subtitle mb-0">Tx Fee: {isGasLoading ? <Loading /> : txFee} ETH</div>
         {txConfirming && <div className="mt-3 animation-slide-up text-gray"> Waiting for confirmation from your wallet </div>}
         {error && <div className="mt-3 text-danger"> {error} </div>}
       </div>
