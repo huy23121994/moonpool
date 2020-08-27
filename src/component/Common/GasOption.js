@@ -23,7 +23,7 @@ export default function GasOption(props) {
     }
 
     fetchEstimatedGasLimit();
-  }, [gasAction, props.defaultGasLimit, props.txType]);
+  }, []); // eslint-disable-line
 
   function toggleDropdown() {
     setIsOpened(!isOpened);

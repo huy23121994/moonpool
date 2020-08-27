@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
-import Modal from "./Modal";
+import Modal from "../Modal";
 import error from "src/assets/images/error.svg";
 import done from "src/assets/images/check-circle.svg";
 import broadcast from "src/assets/images/wifi.svg";
-import CopyableTx from "./CopyableTx";
-import ViewOn from "./ViewOn";
+import CopyableTx from "../CopyableTx";
+import ViewOn from "../ViewOn";
 import { BROADCAST_STATUSES, FETCHING_INTERVALS } from "src/configs/constants";
 import Web3Service from "src/services/web3/Web3Service";
-import Loading from "./Loading";
+import Loading from "../Loading";
 
 function BroardcastedTxModal(props) {
   const [status, setStatus] = useState(BROADCAST_STATUSES.BROADCAST);
@@ -15,26 +15,24 @@ function BroardcastedTxModal(props) {
   const web3Service = new Web3Service();
 
   useEffect(() => {
-    if (props.txHash) {
-      const checkTxMinedInterval = setInterval(() => {
-        web3Service.checkTxMined(props.txHash, props.topic).then((isMined) => {
-          if (isMined !== null) {
-            clearInterval(checkTxMinedInterval);
-            if (isMined) {
-							setStatus(BROADCAST_STATUSES.SUCCESS);
-							props.accountAction.fetchBalance();
-              return;
-            }
-            setStatus(BROADCAST_STATUSES.ERROR);
+    const checkTxMinedInterval = setInterval(() => {
+      web3Service.checkTxMined(props.txHash, props.topic).then((isMined) => {
+        if (isMined !== null) {
+          clearInterval(checkTxMinedInterval);
+          if (isMined) {
+            setStatus(BROADCAST_STATUSES.SUCCESS);
+            props.accountAction.fetchBalance();
+            return;
           }
-        });
-      }, FETCHING_INTERVALS.TX_MINE);
+          setStatus(BROADCAST_STATUSES.ERROR);
+        }
+      });
+    }, FETCHING_INTERVALS.TX_MINE);
 
-      return () => {
-        clearInterval(checkTxMinedInterval);
-      };
-    }
-  }, [web3Service, props]);
+    return () => {
+      clearInterval(checkTxMinedInterval);
+    };
+  }, []); // eslint-disable-line
 
   const collection = [
     {

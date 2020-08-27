@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Modal from "../Common/Modal";
 import useGasAndTxFee from "../Hooks/useGasAndTxFee";
-import { ACTIONS } from "src/configs/constants";
+import { ACTIONS, TOPICS } from "src/configs/constants";
 import { roundNumber } from "src/utils/fortmaters";
 import Web3Service from "src/services/web3/Web3Service";
 import Loading from "../Common/Loading";
@@ -26,6 +26,7 @@ function KncStakeConfirmModal(props) {
       const stakeTxObject = web3Service.getStakeTxObject(account.address, props.stakingAmount, nonce, gasPrice, gas);
       const txHash = await account.wallet.makeTransaction(stakeTxObject, null, account.devicePath);
 
+      props.setTopic(TOPICS.STAKE);
       props.accountAction.setLastTx(txHash, nonce, ACTIONS.STAKE, props.stakingAmount);
       props.closeModal();
       props.openBroadcastModal();

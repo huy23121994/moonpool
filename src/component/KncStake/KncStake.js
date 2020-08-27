@@ -10,9 +10,11 @@ import { compareTwoNumber } from "src/utils/calculators";
 import { toBigAmount } from "src/utils/converters";
 import KncStakeConfirmModal from "./KncStakeConfirmModal";
 import GasOption from "../Common/GasOption";
-import { ACTIONS, DEFAULT_GAS, TOPICS } from "src/configs/constants";
-import BroardcastedTxModal from "../Common/BroardcastedTxModal";
+import { ACTIONS, DEFAULT_GAS } from "src/configs/constants";
+import BroardcastedTxModal from "../Common/Modals/BroardcastedTxModal";
 import Loading from "../Common/Loading";
+import ApproveModal from "../Common/Modals/ApproveModal";
+import WithDrawModal from "../Common/Modals/WithDrawModal";
 
 function KncStake() {
   const [accountState, accountAction] = useAccount();
@@ -20,6 +22,10 @@ function KncStake() {
   const [stakingAmount, setStakingAmount] = useState("");
   const [isOpenConfirmModal, setIsOpenConfirmModal] = useState(false);
   const [isOpenBroadcastModal, setIsOpenBroadcastModal] = useState(false);
+  const [isOpenApproveModal, setIsOpenApproveModal] = useState(false);
+  const [isOpenResetModal, setIsOpenResetModal] = useState(false);
+  const [isOpenWithdrawModal, setIsOpenWithdrawModal] = useState(false);
+  const [topic, setTopic] = useState(null);
   const [error, setError] = useState("");
 
   async function stake() {
@@ -31,11 +37,10 @@ function KncStake() {
     const tokenAllowance = await web3Service.fetchTokenAllowance(address);
     console.log(tokenAllowance);
     if (+tokenAllowance === 0) {
-      // TO DO: show approve modal
+      setIsOpenApproveModal(true);
     } else if (compareTwoNumber(tokenAllowance, toBigAmount(stakingAmount)) === -1) {
-      // TO DO: show reset allowance modal
+      setIsOpenResetModal(true);
     } else {
-      // TO DO: confirm modal
       setIsOpenConfirmModal(true);
     }
   }
@@ -62,7 +67,11 @@ function KncStake() {
               <span className="moon__value">
                 {accountState.updating ? <Loading /> : accountState.KNCstake} KNC
               </span>
-              {accountState.KNCstake > 0 && <div className="withdraw">WITHDRAW</div>}
+              {accountState.KNCstake > 0 && (
+                <div className="withdraw" onClick={() => setIsOpenWithdrawModal(true)}>
+                  WITHDRAW
+                </div>
+              )}
             </div>
           </section>
         )}
@@ -101,7 +110,12 @@ function KncStake() {
 
         {address && (
           <section className="section">
-            <Delegate />
+            <Delegate
+              account={accountState}
+              accountAction={accountAction}
+              openBroadcastModal={() => setIsOpenBroadcastModal(true)}
+              setTopic={setTopic}
+            />
           </section>
         )}
       </div>
@@ -114,6 +128,7 @@ function KncStake() {
           account={accountState}
           accountAction={accountAction}
           openBroadcastModal={() => setIsOpenBroadcastModal(true)}
+          setTopic={setTopic}
         />
       )}
 
@@ -122,8 +137,41 @@ function KncStake() {
           isOpen={isOpenBroadcastModal}
           closeModal={() => setIsOpenBroadcastModal(false)}
           txHash={accountState.lastTx.hash}
-          topic={TOPICS.STAKE}
+          topic={topic}
           accountAction={accountAction}
+        />
+      )}
+
+      {isOpenApproveModal && (
+        <ApproveModal
+          isOpen={isOpenApproveModal}
+          closeModal={() => setIsOpenApproveModal(false)}
+          isApproveToMax={true}
+          account={accountState}
+          accountAction={accountAction}
+          openBroadcastModal={() => setIsOpenBroadcastModal(true)}
+        />
+      )}
+
+      {isOpenResetModal && (
+        <ApproveModal
+          isOpen={isOpenResetModal}
+          closeModal={() => setIsOpenResetModal(false)}
+          isApproveToMax={false}
+          account={accountState}
+          accountAction={accountAction}
+          openBroadcastModal={() => setIsOpenBroadcastModal(true)}
+        />
+      )}
+
+      {isOpenWithdrawModal && (
+        <WithDrawModal 
+          isOpen={isOpenWithdrawModal}
+          closeModal={() => setIsOpenWithdrawModal(false)}
+          account={accountState}
+          accountAction={accountAction}
+          openBroadcastModal={() => setIsOpenBroadcastModal(true)}
+          setTopic={setTopic}
         />
       )}
     </>

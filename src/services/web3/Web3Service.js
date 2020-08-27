@@ -189,9 +189,8 @@ export default class Web3Service {
 
   checkTxMined = async (txHash, topic) => {
     const receipt = await this.web3.eth.getTransactionReceipt(txHash);
-
     if (receipt !== null) {
-      if (topic === undefined) {
+      if (!topic) {
         return receipt.status
       }
       const logs = receipt.logs;
