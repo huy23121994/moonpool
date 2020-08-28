@@ -17,6 +17,7 @@ import ApproveModal from "../Common/Modals/ApproveModal";
 import WithDrawModal from "../Common/Modals/WithDrawModal";
 
 function KncStake() {
+  console.log('ok')
   const [accountState, accountAction] = useAccount();
   const address = accountState.address;
   const [stakingAmount, setStakingAmount] = useState("");

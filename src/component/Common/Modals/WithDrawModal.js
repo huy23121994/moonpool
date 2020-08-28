@@ -49,7 +49,7 @@ export default function WithDrawModal(props) {
     <Modal isOpen={props.isOpen} closeModal={props.closeModal}>
       <div className="modal__section">
         <div className="modal__title">Withdraw Stake</div>
-        <div className="my-2">Do you wish to withdraw your staked KNC from MoonPool?</div>
+        <div className="my-3">Do you wish to withdraw your staked KNC from MoonPool?</div>
         <div className="mb-4 text-purple">
           Note: Withdrawing your stake will affect your voting power and reward for the proposals in
           this epoch.
