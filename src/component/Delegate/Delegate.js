@@ -43,39 +43,41 @@ function Delegate(props) {
         Delegate to MoonPool
       </div>
 
-      <Modal isOpen={isOpenDelegateModal} closeModal={() => setIsOpenDelegateModal(false)}>
-        <div className="modal__section">
-          <div className="modal__title">Delegate</div>
-          <div className="my-2">
-            You are delegating your power to 0x123..4 to vote on your behalf
-          </div>
-          <div className="mb-4 text-purple">
-            Important: It is up to your representative or staking pool to distribute rewards to you.
-            You are advised to read their T&Cs. MoonPool does not hold your rewards.
-          </div>
-          <div className="mt-2"></div>
-          <GasOption
-            txType={ACTIONS.DELEGATE}
-            txParams={{ address: account.address, delegatedAddress: delegatedAddress }}
-            defaultGasLimit={DEFAULT_GAS.DELEGATE}
-          />
-          {txConfirming && (
-            <div className="mt-3 animation-slide-up text-gray">
-              Waiting for confirmation from your wallet
+      {isOpenDelegateModal && 
+        <Modal isOpen={isOpenDelegateModal} modal="delegate" closeModal={() => setIsOpenDelegateModal(false)}>
+          <div className="modal__section">
+            <div className="modal__title">Delegate</div>
+            <div className="my-2">
+              You are delegating your power to 0x123..4 to vote on your behalf
             </div>
-          )}
-          {error && <div className="mt-3 text-danger"> {error} </div>}
+            <div className="mb-4 text-purple">
+              Important: It is up to your representative or staking pool to distribute rewards to you.
+              You are advised to read their T&Cs. MoonPool does not hold your rewards.
+            </div>
+            <div className="mt-2"></div>
+            <GasOption
+              txType={ACTIONS.DELEGATE}
+              txParams={{ address: account.address, delegatedAddress: delegatedAddress }}
+              defaultGasLimit={DEFAULT_GAS.DELEGATE}
+            />
+            {txConfirming && (
+              <div className="mt-3 animation-slide-up text-gray">
+                Waiting for confirmation from your wallet
+              </div>
+            )}
+            {error && <div className="mt-3 text-danger"> {error} </div>}
 
-        </div>
-        <div className="modal__footer">
-          <button className="btn btn-default" onClick={() => setIsOpenDelegateModal(false)}>
-            Cancel
-          </button>
-          <button className="btn btn-dark" onClick={delegate}>
-            Confirm
-          </button>
-        </div>
-      </Modal>
+          </div>
+          <div className="modal__footer">
+            <button className="btn btn-default" onClick={() => setIsOpenDelegateModal(false)}>
+              Cancel
+            </button>
+            <button className="btn btn-dark" onClick={delegate}>
+              Confirm
+            </button>
+          </div>
+        </Modal>
+      }
     </>
   );
 }

@@ -6,7 +6,7 @@ const envConfig = {
     ENJINX: 'https://kyber.enjinx.io',
   },
   NODE: {
-    URL: "https://eth-ropsten.alchemyapi.io/v2/ZszJ3X4x-JiQqHdeJj19p-V1Rpfpuy-Q",
+    URL: "https://ethereum.kyber.org/v1/ropsten/node",
     CONNECTION_TIMEOUT: 6000
   },
   CONTRACTS: {
