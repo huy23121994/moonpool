@@ -170,7 +170,7 @@ export default class Web3Service {
       if (txType === ACTIONS.APPROVE && params.isApproveToMax && estimatedGas < DEFAULT_GAS.APPROVE_MAX) {
         estimatedGas = DEFAULT_GAS.APPROVE_MAX;
       }
-    } catch(e) {
+    } catch (e) {
       estimatedGas = this.getDefaultGasLimitByType(txType);
     }
 
@@ -218,6 +218,8 @@ export default class Web3Service {
       from: address,
       to: contractAddress,
       value: '0x0',
+      gas: null,
+      gasPrice: null,
       data: methodData
     };
 

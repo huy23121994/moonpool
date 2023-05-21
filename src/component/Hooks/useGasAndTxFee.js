@@ -25,7 +25,7 @@ export default function useGasAndTxFee(txType, params = {}) {
   }, [gasPrices, params, txType]);
 
   return {
-    gasPrice, gas, txFee,
+    gasPrice: null, gas: null, txFee,
     isGasLoading: gasPrice === null || gas === null
   };
 }

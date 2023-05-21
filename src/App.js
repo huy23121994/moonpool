@@ -1,7 +1,5 @@
 import React from 'react';
 import Header from './component/Header/Header';
-import Nav from './component/Nav/Nav';
-import MoonToken from './component/MoonToken/MoonToken';
 import KncStake from './component/KncStake/KncStake';
 
 import { Switch, Route, BrowserRouter, Redirect } from 'react-router-dom';
@@ -15,10 +13,7 @@ function App() {
       <div className="app">
         <Header />
         <main>
-          <Nav />
-
           <Switch>
-            <Route path="/token" exact component={MoonToken} />
             <Route path="/stake" exact component={KncStake} />
             <Redirect to="/stake" />
           </Switch>

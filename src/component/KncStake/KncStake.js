@@ -17,7 +17,6 @@ import ApproveModal from "../Common/Modals/ApproveModal";
 import WithDrawModal from "../Common/Modals/WithDrawModal";
 
 function KncStake() {
-  console.log('ok')
   const [accountState, accountAction] = useAccount();
   const address = accountState.address;
   const [stakingAmount, setStakingAmount] = useState("");
@@ -36,7 +35,6 @@ function KncStake() {
 
     const web3Service = new Web3Service();
     const tokenAllowance = await web3Service.fetchTokenAllowance(address);
-    console.log(tokenAllowance);
     if (+tokenAllowance === 0) {
       setIsOpenApproveModal(true);
     } else if (compareTwoNumber(tokenAllowance, toBigAmount(stakingAmount)) === -1) {
@@ -62,8 +60,8 @@ function KncStake() {
     <>
       <div className="moon">
         {address && (
-          <section className="section">
-            <div className="section__title">Your Stake at Kyber</div>
+          <section>
+            <div>Your Stake at Kyber</div>
             <div className="moon__balance">
               <span className="moon__value">
                 {accountState.updating ? <Loading /> : accountState.KNCstake} KNC
@@ -166,7 +164,7 @@ function KncStake() {
       )}
 
       {isOpenWithdrawModal && (
-        <WithDrawModal 
+        <WithDrawModal
           isOpen={isOpenWithdrawModal}
           closeModal={() => setIsOpenWithdrawModal(false)}
           account={accountState}
